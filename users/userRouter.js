@@ -13,7 +13,12 @@ router.post('/:id/posts', validatePost, (req, res) => {
 });
 
 router.get('/', (req, res) => {
-
+  users.get()
+       .then(users => res.json(users))
+       .catch(error => {
+         console.log(error)
+         res.status(400).json({ message: 'Error occured while fetching users' });
+        })
 });
 
 router.get('/:id', validateUserId, (req, res) => {

@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const userRouter = require('./users/userRouter');
+const userRouter = require('./posts/postsRouter');
 
 const server = express();
 server.use(helmet());
@@ -9,6 +10,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/users', userRouter);
+server.use('/api/posts', postsRouter);
 
 //custom middleware
 

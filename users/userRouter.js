@@ -1,4 +1,4 @@
-const express = 'express';
+const express = require('express');
 const users = require('./userDb');
 
 const router = express.Router();
@@ -38,6 +38,7 @@ function validateUserId(req, res, next) {
        .then(user => {
          if(user) {
           req.user=user;
+          next();
          }
          res.status(400).json({ message: 'User id is not valid' });
        }).catch(error => {

@@ -25,16 +25,26 @@ router.get('/:id', validateUserId, (req, res) => {
   res.json(req.user);
 });
 
-router.get('/:id/posts', (req, res) => {
-
+router.get('/:id/posts', validateUserId, (req, res) => {
+  users.getUserPosts(req.params.id)
+       .then(posts => res.status(200).json(posts))
+       .catch(err => {
+         console.log(err);
+         res.status(400).json({ message: 'Error fetching posts' });
+       })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateUserId, (req, res) => {
 
 });
 
 router.put('/:id', (req, res) => {
-
+  users.remove(req.params.id)
+  .then(user => res.status(200).json(user))
+  .catch(err => {
+    console.log(err);
+    res.status(400).json({ message: 'Error deleting user' });
+  })
 });
 
 //custom middleware
